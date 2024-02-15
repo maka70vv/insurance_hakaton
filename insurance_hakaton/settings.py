@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 import dotenv
 from dotenv import load_dotenv
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +141,36 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=3),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+}
+
+# AUTH_USER_MODEL = 'users.Users'
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework_simplejwt.authentication.JWTAuthentication"],
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissions",),
+    'SEARCH_PARAM': 'q'
+}
+
+
