@@ -9,4 +9,3 @@ class Limit(models.Model):
     limitSumm = models.PositiveIntegerField(default=0)
     verboseIndustry = models.ForeignKey(Industry, on_delete=models.CASCADE)
     verboseTariff = models.ForeignKey(Tariff, on_delete=models.CASCADE)
-    # verboseUser

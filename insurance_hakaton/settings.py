@@ -14,10 +14,10 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
-# import dotenv
-# from dotenv import load_dotenv
+import dotenv
+from dotenv import load_dotenv
 
-# load_dotenv()
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,6 +50,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     "users",
+    'limts_by_user',
+    'insurance_industry',
+    'limits',
+    'tariffs'
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -171,7 +175,6 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
 }
 
-# AUTH_USER_MODEL = 'users.Users'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework_simplejwt.authentication.JWTAuthentication"],
