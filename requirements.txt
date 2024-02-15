@@ -27,6 +27,7 @@ more-itertools==10.1.0
 msgpack==1.0.7
 packaging==23.2
 pexpect==4.8.0
+pillow==10.2.0
 pipenv==2023.11.17
 pkginfo==1.9.6
 platformdirs==3.11.0
@@ -40,6 +41,7 @@ pyproject_hooks==1.0.0
 python-dotenv==1.0.1
 pytz==2024.1
 PyYAML==6.0.1
+pyzbar==0.1.9
 rapidfuzz==3.5.2
 requests==2.31.0
 requests-toolbelt==1.0.0
