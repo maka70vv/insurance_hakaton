@@ -25,6 +25,8 @@ jeepney==0.8.0
 keyring==24.2.0
 more-itertools==10.1.0
 msgpack==1.0.7
+numpy==1.26.4
+opencv-python==4.9.0.80
 packaging==23.2
 pexpect==4.8.0
 pillow==10.2.0
