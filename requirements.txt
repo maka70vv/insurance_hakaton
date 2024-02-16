@@ -1,4 +1,6 @@
 asgiref==3.7.2
+beautifulsoup4==4.12.3
+bs4==0.0.2
 build==1.0.3
 CacheControl==0.13.1
 certifi==2023.7.22
@@ -50,6 +52,7 @@ requests-toolbelt==1.0.0
 rest-framework-simplejwt==0.0.2
 SecretStorage==3.3.3
 shellingham==1.5.3
+soupsieve==2.5
 sqlparse==0.4.4
 tomlkit==0.12.1
 trove-classifiers==2023.9.19

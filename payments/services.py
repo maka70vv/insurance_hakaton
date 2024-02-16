@@ -37,3 +37,5 @@ class ProcessQR:
             summ = int(payment_data['ticketTotalSum']) / 100
         return inn, dateTime, summ
 
+
+
