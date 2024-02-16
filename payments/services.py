@@ -2,7 +2,6 @@ from datetime import datetime
 
 import requests
 from pyzbar.pyzbar import decode
-from PIL import Image
 import cv2
 
 class ProcessQR:
@@ -21,7 +20,6 @@ class ProcessQR:
                     if decoded_objects:
                         qr_data = decoded_objects[0].data.decode('utf-8')
                         self.process_qr(qr_data)
-                        # return {'qr_data': qr_data}
 
             return {'error': 'No QR code found on the receipt image'}
 
@@ -36,4 +34,6 @@ class ProcessQR:
             dateTime = datetime.strptime(payment_data['dateTime'], '%Y-%m-%dT%H:%M:%SZ')
             summ = int(payment_data['ticketTotalSum']) / 100
         return inn, dateTime, summ
+
+
 
