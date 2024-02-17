@@ -4,6 +4,8 @@ import requests
 from qreader import QReader
 import cv2
 
+from payments.parser import Parser
+
 
 class ProcessQR:
     def process_receipt_image(self, image):
@@ -25,7 +27,9 @@ class ProcessQR:
             inn = payment_data['tin']
             dateTime = datetime.strptime(payment_data['dateTime'], '%Y-%m-%dT%H:%M:%SZ')
             summ = int(payment_data['ticketTotalSum']) / 100
-            return inn, dateTime, summ
+            parser = Parser()
+            is_medical = bool(parser.parser(inn))
+            return inn, dateTime, summ, is_medical
 
 
 
