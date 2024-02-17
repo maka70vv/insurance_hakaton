@@ -18,11 +18,8 @@ RUN apt-get update && \
     python3 \
     python3-pip \
     libzbar0 \
-    libzbar-dev \
-    python3-opencv \
-    libsm6 \
-    libxext6 \
-    libxrender-dev
+    libgl1-mesa-glx \
+    libglib2.0-0
 
 RUN pip install --upgrade pip
 COPY requirements.txt .
