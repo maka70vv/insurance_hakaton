@@ -50,5 +50,6 @@ urlpatterns = [
         name='schema-redoc'
     ),
     path('admin/', admin.site.urls),
-    path('api/', include('limts_by_user.urls'))
+    path('api/', include('limts_by_user.urls')),
+    path('api/', include('payments.urls'))
 ]

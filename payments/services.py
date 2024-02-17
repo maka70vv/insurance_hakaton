@@ -1,28 +1,20 @@
 from datetime import datetime
 
 import requests
-from pyzbar.pyzbar import decode
+from qreader import QReader
 import cv2
+
 
 class ProcessQR:
     def process_receipt_image(self, image):
         try:
-            img = cv2.imread(image)
-            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            contours, _ = cv2.findContours(gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-            for contour in contours:
-                approx = cv2.approxPolyDP(contour, 0.01 * cv2.arcLength(contour, True), True)
-                if len(approx) == 4:
-                    x, y, w, h = cv2.boundingRect(approx)
-                    roi = img[y:y + h, x:x + w]
-                    decoded_objects = decode(roi)
-                    if decoded_objects:
-                        qr_data = decoded_objects[0].data.decode('utf-8')
-                        self.process_qr(qr_data)
+            qreader = QReader()
 
-            return {'error': 'No QR code found on the receipt image'}
+            image = cv2.cvtColor(cv2.imread(image), cv2.COLOR_BGR2RGB)
 
+            decoded_text = qreader.detect_and_decode(image=image)
+            self.process_qr(decoded_text[0])
         except Exception as e:
             return {'error': 'Error processing receipt image: {}'.format(str(e))}
 
@@ -33,7 +25,7 @@ class ProcessQR:
             inn = payment_data['tin']
             dateTime = datetime.strptime(payment_data['dateTime'], '%Y-%m-%dT%H:%M:%SZ')
             summ = int(payment_data['ticketTotalSum']) / 100
-        return inn, dateTime, summ
+            return inn, dateTime, summ
 
 
 

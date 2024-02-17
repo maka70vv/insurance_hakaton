@@ -1,11 +1,13 @@
 from django.db import models
 
 from limts_by_user.models import LimitsByUser
+from medical_services.models import MedicalServies
 from users.models import User
 
 
 class MedicalPaymentRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    service = models.ForeignKey(MedicalServies, on_delete=models.CASCADE)
     limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
     kkmCheck = models.FileField(upload_to='kkm/')
     referral = models.FileField(upload_to='napravleniya/', null=True, blank=True)

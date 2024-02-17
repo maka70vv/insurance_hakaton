@@ -36,7 +36,8 @@ DEBUG = int(os.getenv("DEBUG", default=1))
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
 DJANGO_ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS").split(",")
 ALLOWED_HOSTS = DJANGO_ALLOWED_HOSTS
-
+CSRF_TRUSTED_ORIGINS = ["http://0.0.0.0:8000"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -53,7 +54,10 @@ INSTALLED_APPS = [
     'limts_by_user',
     'insurance_industry',
     'limits',
-    'tariffs'
+    'tariffs',
+    'medical_services',
+    'payments',
+
 ]
 
 AUTH_USER_MODEL = "users.User"
@@ -154,33 +158,8 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
-
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=3),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
-}
-
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework_simplejwt.authentication.JWTAuthentication"],
-    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
-    "TEST_REQUEST_DEFAULT_FORMAT": "json",
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.DjangoModelPermissions",),
-    'SEARCH_PARAM': 'q'
 }
 
