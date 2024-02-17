@@ -1,7 +1,7 @@
 import re
 import requests
 from bs4 import BeautifulSoup as BS
-from gked_check import CheckGKED
+from .gked_check import CheckGKED
 
 
 class Parser:
@@ -30,7 +30,7 @@ class Parser:
             result = checkGKED.check_gked_medical(gked_code)
             return result
         else:
-            return "Not found"
+            return False
 
     def parser(self, inn):
         html = self.get_html(self.URL+f"/inn/{inn}/")
