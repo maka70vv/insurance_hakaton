@@ -77,7 +77,7 @@ class VZRPaymentView(generics.CreateAPIView):
 class VZRPaymentProcess(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
     queryset = VZRPaymentRequest.objects.all()
-    serializer_class = PaymentSerializer
+    serializer_class = VZRPaymentSerializer
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -102,3 +102,12 @@ class VZRPaymentProcess(generics.UpdateAPIView):
             serializer.is_valid(raise_exception=True)
             self.perform_update(serializer)
             return Response(serializer.data)
+
+
+class VZRPaymentByUserView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = VZRPaymentSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return VZRPaymentRequest.objects.filter(user=user)
