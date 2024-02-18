@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'medical_services',
     'payments', # Comment this if you are not using Docker
     'taxes',
-
+    'hr'
 ]
 
 AUTH_USER_MODEL = "users.User"

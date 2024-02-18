@@ -4,8 +4,9 @@ from django.db import models
 
 # Create your models here.
 class User(AbstractUser):
-    iin = models.CharField(
-        max_length=12,
+    inn = models.CharField(
+        max_length=14,
+        unique=True,
         null=True,
         blank=True,
         verbose_name="ИИН",
