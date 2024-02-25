@@ -20,9 +20,6 @@ class MedicalPaymentRequest(models.Model):
     def __str__(self):
         return self.dateTime
 
-    class Meta:
-        app_label = "payments"
-
 
 class VZRPaymentRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -39,6 +36,3 @@ class VZRPaymentRequest(models.Model):
 
     def __str__(self):
         return self.dateTime
-
-    class Meta:
-        app_label = "payments"
