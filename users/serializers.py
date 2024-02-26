@@ -7,7 +7,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        field = (
+        fields = (
             "date_of_birth",
             "passport_number",
             "date_of_issue",
@@ -16,7 +16,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "sex",
             "place_of_birth",
             "place_of_residence",
-            "residental_addres",
+            "residential_addres",
         )
 
 
@@ -25,13 +25,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        field = (
+        fields = (
             "first_name",
             "last_name",
             "email",
             "password",
-            "iin",
-            "iban",
+            "inn",
+            "iban_number",
             "profile",
         )
         extra_kwarg = {"password": {"write_only": True}}
@@ -49,8 +49,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         profile_data = validated_data.pop("profile")
         profile = instance.profile
 
-        instance.iin = validated_data.get("iin", instance.iin)
-        instance.iban = validated_data.get("iban", instance.iban)
+        instance.iin = validated_data.get("inn", instance.iin)
+        instance.iban = validated_data.get("iban_number", instance.iban)
         instance.save()
 
         profile.date_of_birth = profile_data.get(
