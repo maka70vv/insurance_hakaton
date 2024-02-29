@@ -6,7 +6,7 @@ from .models import User, UserProfile
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        field = '__all__'
+        fields = '__all__'
         extra_kwarg = {"password": {"write_only": True}}
 
     def create(self, validated_data):
