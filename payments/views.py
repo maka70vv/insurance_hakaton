@@ -17,7 +17,7 @@ class ReceiptUploadView(generics.CreateAPIView):
         qr = serializer.validated_data.get("kkmCheck")
         processQR = ProcessQR()
         inn, dateTime, summ, is_medical = processQR.process_receipt_image(qr)
-        user = serializer.validated_data["user"]
+        user = self.request.user
         service = serializer.validated_data.get("service")
         limitName = service.verboseLimitName
 
