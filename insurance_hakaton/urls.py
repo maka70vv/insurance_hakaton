@@ -56,6 +56,7 @@ urlpatterns = [
     path("api/", include("limts_by_user.urls")),
     path("api/", include("payments.urls")),
     path("api/", include("payments.urls")),
+    path("api/", include("users.urls")),
     path(
         "api/token/",
         TokenObtainPairView.as_view(),

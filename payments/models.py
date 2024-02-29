@@ -36,3 +36,24 @@ class VZRPaymentRequest(models.Model):
 
     def __str__(self):
         return self.dateTime
+
+
+class GruzPaymentRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    accidentPlace = models.TextField()
+    dateTime = models.DateTimeField(auto_now_add=True)
+    processed = models.BooleanField(default=False)
+    approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.dateTime
+
+
+class CarPaymentRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    dateTime = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='car/photos/')
+    kkm = models.FileField(upload_to='car/kkm/')
+
+    def __str__(self):
+        return self.dateTime

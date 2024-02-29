@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "limits",
     "tariffs",
     "medical_services",
-    "payments", # Comment this if you are not using Docker
+    "payments",
     "taxes",
     "hr",
 ]
