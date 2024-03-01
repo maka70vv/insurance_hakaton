@@ -7,7 +7,6 @@ class MedicalServicesAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-
 class VZRAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
