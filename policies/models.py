@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+from insurance_companies.models import Company
 from tariffs.models import Tariff
 
 
@@ -12,6 +13,10 @@ class AccidentPolicy(models.Model):
     date_expiration = models.DateField(verbose_name="Дата окончания")
     insurance_territory = models.CharField(max_length=255, verbose_name="Територия страхования")
     insured_elsewhere = models.BooleanField(default=False)
+    insurance_company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Страховая компания")
+    price = models.IntegerField(verbose_name="Стоимость полиса (без комиссии)")
+    price_with_commission = models.IntegerField(verbose_name="Стоимость полиса с комисиией сервиса")
+    commission_summ = models.IntegerField(verbose_name="Сумма комиссии")
 
     def __str__(self):
         return self.policy_num
@@ -30,6 +35,10 @@ class CarPolicy(models.Model):
     date_expiration = models.DateField(verbose_name="Дата окончания")
     insurance_territory = models.CharField(max_length=255, verbose_name="Територия страхования")
     type_control = models.CharField(max_length=255, choices=("default", "under attorney", "all"))
+    insurance_company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Страховая компания")
+    price = models.IntegerField(verbose_name="Стоимость полиса (без комиссии)")
+    price_with_commission = models.IntegerField(verbose_name="Стоимость полиса с комисиией сервиса")
+    commission_summ = models.IntegerField(verbose_name="Сумма комиссии")
 
     def __str__(self):
         return self.policy_num
@@ -54,6 +63,10 @@ class CargoPolicy(models.Model):
     insurance_price = models.PositiveIntegerField(verbose_name="Страховая сумма")
     date_beginning = models.DateField(auto_now_add=True, verbose_name="Дата начала полиса")
     date_expiration = models.DateField(verbose_name="Дата окончания")
+    insurance_company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Страховая компания")
+    price = models.IntegerField(verbose_name="Стоимость полиса (без комиссии)")
+    price_with_commission = models.IntegerField(verbose_name="Стоимость полиса с комисиией сервиса")
+    commission_summ = models.IntegerField(verbose_name="Сумма комиссии")
 
     def __str__(self):
         return self.policy_num
@@ -69,6 +82,10 @@ class VZRPolicy(models.Model):
     travelGoal = models.CharField(max_length=255, choices=(
         "Деловая поездка", "Туризм", "Гостевая", "Частная", "Спорт", "Воссоединение семьи", "Лечение", "Учеба",
         "Стажировка"))
+    insurance_company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Страховая компания")
+    price = models.IntegerField(verbose_name="Стоимость полиса (без комиссии)")
+    price_with_commission = models.IntegerField(verbose_name="Стоимость полиса с комисиией сервиса")
+    commission_summ = models.IntegerField(verbose_name="Сумма комиссии")
 
     def __str__(self):
         return self.policy_num
@@ -81,6 +98,10 @@ class DMSPolicy(models.Model):
     date_beginning = models.DateField(verbose_name="Дата начала полиса")
     date_expiration = models.DateField(verbose_name="Дата окончания полиса")
     tariff = models.ForeignKey(Tariff, on_delete=models.CASCADE)
+    insurance_company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="Страховая компания")
+    price = models.IntegerField(verbose_name="Стоимость полиса (без комиссии)")
+    price_with_commission = models.IntegerField(verbose_name="Стоимость полиса с комисиией сервиса")
+    commission_summ = models.IntegerField(verbose_name="Сумма комиссии")
 
     def __str__(self):
         return self.policy_num
