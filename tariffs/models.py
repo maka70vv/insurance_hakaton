@@ -9,13 +9,3 @@ class Tariff(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class PricesByCompany(models.Model):
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    tariff = models.ForeignKey(Tariff, on_delete=models.CASCADE, null=True, blank=True)
-    price = models.IntegerField()
-    verbose_industry = models.ForeignKey(Industry, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.company.name
