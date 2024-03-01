@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     "tariffs",
     "medical_services",
     "payments",
-    'insurance_companies'
+    'insurance_companies',
+    'policies',
 ]
 
 AUTH_USER_MODEL = "users.User"
