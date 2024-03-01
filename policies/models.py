@@ -41,3 +41,8 @@ class CargoPolicy(models.Model):
     insurance_price = models.PositiveIntegerField(verbose_name="Страховая сумма")
     date_beginning = models.DateTimeField(auto_now_add=True, verbose_name="Дата начала полиса")
     date_expiration = models.DateTimeField(verbose_name="Дата окончания")
+
+
+class VZR(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
