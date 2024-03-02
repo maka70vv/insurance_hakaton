@@ -7,7 +7,6 @@ from users.models import User
 
 
 class MedicalPaymentRequest(models.Model):
-    policy = models.ForeignKey(DMSPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     service = models.ForeignKey(MedicalServices, on_delete=models.CASCADE)
     limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
@@ -26,7 +25,6 @@ class MedicalPaymentRequest(models.Model):
 
 
 class VZRPaymentRequest(models.Model):
-    policy = models.ForeignKey(VZRPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     service = models.ForeignKey(VZRServices, on_delete=models.CASCADE)
     limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
