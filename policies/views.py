@@ -144,48 +144,55 @@ class VZRPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# class DMSPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
-#     permission_classes = [IsAuthenticated]
-#     serializer_class = DMSPolicySerializer
-#     queryset = DMSPolicy.objects.all()
-#
-#     def post(self, request, *args, **kwargs):
-#         exel_form = request.data.get("exel_form")
-#         workers = parse(exel_form)
-#
-#         for worker in workers.values():
-#             inn = worker[0]
-#             fam1_inn = worker[1]
-#             fam2_inn = worker[2]
-#             summ = request.data.get("price")
-#             company_id = request.data.get("insurance_company")
-#             tariff_id = request.data.get("tariff")
-#             try:
-#                 tariff = Tariff.objects.get(id=tariff_id)
-#             except Tariff.DoesNotExist:
-#                 return Response(tariff_id)
-#             insurance_company = Company.objects.get(id=company_id)
-#             commission_by_company = insurance_company.commission
-#             commission_summ = int(summ) * int(commission_by_company) / 100
-#             price_with_commission = int(summ) + commission_summ
-#
-#             request_data = request.data.copy()
-#             request_data.pop("exel_form")
-#             request_data.pop("tariff")
-#
-#             dms_insurance = DMSPolicy(
-#                 inn=inn,
-#                 fam_member1_inn=fam1_inn,
-#                 fam_member2_inn=fam2_inn,
-#                 commission_summ=commission_summ,
-#                 price_with_commission=price_with_commission,
-#                 tariff=tariff,
-#                 # insurance_company=insurance_company,
-#                 **request.data
-#
-#                 )
-#
-#             dms_insurance.save()
-#
-#         return Response({"message": "Data created successfully"}, status=status.HTTP_201_CREATED)
-#
+class DMSPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = DMSPolicySerializer
+    queryset = DMSPolicy.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        policies = []
+
+        exel_form = request.data.get("exel_form")
+        workers = parse(exel_form)
+
+        for worker in workers.values():
+            inn = worker[0]
+            fam1_inn = worker[1]
+            fam2_inn = worker[2]
+            summ = request.data.get("price")
+            company_id = request.data.get("insurance_company")
+            tariff_id = request.data.get("tariff")
+            date_beginning = request.data.get("date_beginning")
+            date_expiration = request.data.get("date_expiration")
+
+            try:
+                tariff = Tariff.objects.get(id=tariff_id)
+            except Tariff.DoesNotExist:
+                return Response(tariff_id)
+            insurance_company = Company.objects.get(id=company_id)
+            commission_by_company = insurance_company.commission
+            commission_summ = int(summ) * int(commission_by_company) / 100
+            price_with_commission = int(summ) + commission_summ
+
+            dms_insurance = DMSPolicy(
+                inn=inn,
+                fam_member1_inn=fam1_inn,
+                fam_member2_inn=fam2_inn,
+                commission_summ=commission_summ,
+                price_with_commission=price_with_commission,
+                tariff=tariff,
+                date_beginning=date_beginning,
+                date_expiration=date_expiration,
+                price=summ,
+                insurance_company=insurance_company
+                )
+
+            dms_insurance.save()
+            dms_insurance.policy_num = f"ДМС№{dms_insurance.id}"
+            dms_insurance.save()
+
+            serializer = self.get_serializer(dms_insurance)
+            policies.append(serializer.data)
+
+        return Response(policies, status=status.HTTP_201_CREATED)
+
