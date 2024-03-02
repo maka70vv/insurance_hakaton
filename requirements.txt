@@ -71,3 +71,4 @@ zipp==3.17.0
 qreader
 openpyxl
 django-cors-headers
+inference_sdk
