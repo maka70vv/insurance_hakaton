@@ -74,5 +74,6 @@ urlpatterns = [
     ),
     path("api/", include("users.urls")),
     path("api/", include("policies.urls")),
-    path("api/", include("tariffs.urls"))
+    path("api/", include("tariffs.urls")),
+    path("api/", include("insurance_companies.urls"))
 ]
