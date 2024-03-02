@@ -73,5 +73,6 @@ urlpatterns = [
         name="token_verify",
     ),
     path("api/", include("users.urls")),
-    path("api/", include("policies.urls"))
+    path("api/", include("policies.urls")),
+    path("api/", include("tariffs.urls"))
 ]
