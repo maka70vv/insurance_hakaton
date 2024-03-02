@@ -71,7 +71,6 @@ class CargoPolicy(models.Model):
     policy_num = models.CharField(max_length=10, unique=True, verbose_name="Номер полиса")
     cargo_name = models.CharField(max_length=255, verbose_name="Наименование груза")
     isnew_cargo = models.BooleanField(default=True, verbose_name="Новый груз")
-    danger_class = models.CharField(max_length=255, verbose_name="Класс опасности")
     length = models.PositiveIntegerField(verbose_name="Длина")
     width = models.PositiveIntegerField(verbose_name="Ширина")
     height = models.PositiveIntegerField(verbose_name="Высота")
@@ -121,6 +120,8 @@ class DMSPolicy(models.Model):
     price = models.IntegerField(verbose_name="Стоимость полиса (без комиссии)", null=True, blank=True)
     price_with_commission = models.IntegerField(verbose_name="Стоимость полиса с комиссией сервиса", null=True, blank=True)
     commission_summ = models.IntegerField(verbose_name="Сумма комиссии", null=True, blank=True)
+    fam_member1_inn = models.CharField(max_length=14, verbose_name="ИНН прикрепленного члена семьи №1", null=True, blank=True)
+    fam_member2_inn = models.CharField(max_length=14, verbose_name="ИНН прикрепленного члена семьи №1", null=True, blank=True)
 
     def __str__(self):
         return self.policy_num
