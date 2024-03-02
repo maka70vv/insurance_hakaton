@@ -31,3 +31,5 @@ class DMSPolicySerializer(serializers.ModelSerializer):
     class Meta:
         model = DMSPolicy
         fields = '__all__'
+
+        extra_kwargs = {"exel_form": {"write_only": True}}
