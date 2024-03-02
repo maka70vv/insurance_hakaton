@@ -3,7 +3,6 @@ from rest_framework import serializers
 from payments.models import MedicalPaymentRequest, VZRPaymentRequest, GruzPaymentRequest, CarPaymentRequest
 
 
-
 class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicalPaymentRequest

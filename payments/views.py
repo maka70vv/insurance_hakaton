@@ -57,8 +57,7 @@ class MedicalPaymentByUserView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         queryset = MedicalPaymentRequest.objects.filter(user=user)
-        return Response(queryset)
-
+        return queryset
 
 class VZRPaymentView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -109,7 +108,7 @@ class VZRPaymentProcess(generics.UpdateAPIView):
                 self.perform_update(serializer)
                 return Response(serializer.data)
         else:
-            return Response()
+            return Response(status=status.HTTP_403_FORBIDDEN)
 
 
 class VZRPaymentByUserView(generics.ListAPIView):
@@ -119,11 +118,7 @@ class VZRPaymentByUserView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         queryset = VZRPaymentRequest.objects.filter(user=user)
-        return Response(queryset)
-
-
-class VZRPaymentRequestCreateView(generics.CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+        return queryset
 
 
 class CargoPaymentRequestCreateView(generics.CreateAPIView):
@@ -172,7 +167,7 @@ class CargoPaymentRequestDetailView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         queryset = GruzPaymentRequest.objects.filter(user=user)
-        return Response(queryset)
+        return queryset
 
 
 class CarPaymentRequestCreateView(generics.CreateAPIView):
@@ -233,10 +228,48 @@ class CarPaymentRequestByUserView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = CarPaymentRequest.objects.filter(user=self.request.user)
-        return Response(queryset)
+        return queryset
 
 
 class DMSPaymentsForInsuranceCompanies(generics.ListAPIView):
     permission_classes = [IsAuthenticated]
     queryset = MedicalPaymentRequest.objects.all()
     serializer_class = PaymentSerializer
+
+    def get_queryset(self):
+        company = self.request.user.company_instance
+        queryset = MedicalPaymentRequest.objects.filter(insurance_company=company)
+        return queryset
+
+
+class VZRPaymentsForInsuranceCompanies(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = VZRPaymentRequest.objects.all()
+    serializer_class = VZRPaymentSerializer
+
+    def get_queryset(self):
+        company = self.request.user.company_instance
+        queryset = VZRPaymentRequest.objects.filter(insurance_company=company)
+        return queryset
+
+
+class CargoPaymentsForInsuranceCompanies(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = GruzPaymentRequest.objects.all()
+    serializer_class = GruzPaymentSerializer
+
+    def get_queryset(self):
+        company = self.request.user.company_instance
+        queryset = GruzPaymentRequest.objects.filter(insurance_company=company)
+        return queryset
+
+
+class CarPaymentsForInsuranceCompanies(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = CarPaymentRequest.objects.all()
+    serializer_class = CarPaymentSerializer
+
+    def get_queryset(self):
+        company = self.request.user.company_instance
+        queryset = CarPaymentRequest.objects.filter(insurance_company=company)
+        return queryset
