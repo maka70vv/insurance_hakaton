@@ -2,10 +2,12 @@ from django.db import models
 
 from limts_by_user.models import LimitsByUser
 from medical_services.models import MedicalServices, VZRServices
+from policies.models import DMSPolicy, VZRPolicy, CargoPolicy, CarPolicy
 from users.models import User
 
 
 class MedicalPaymentRequest(models.Model):
+    policy = models.ForeignKey(DMSPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     service = models.ForeignKey(MedicalServices, on_delete=models.CASCADE)
     limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
@@ -24,6 +26,7 @@ class MedicalPaymentRequest(models.Model):
 
 
 class VZRPaymentRequest(models.Model):
+    policy = models.ForeignKey(VZRPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     service = models.ForeignKey(VZRServices, on_delete=models.CASCADE)
     limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
@@ -41,7 +44,9 @@ class VZRPaymentRequest(models.Model):
 
 
 class GruzPaymentRequest(models.Model):
+    policy = models.ForeignKey(CargoPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='cargo/')
     accidentPlace = models.TextField()
     dateTime = models.DateTimeField(auto_now_add=True)
     processed = models.BooleanField(default=False)
@@ -52,9 +57,11 @@ class GruzPaymentRequest(models.Model):
 
 
 class CarPaymentRequest(models.Model):
+    policy = models.ForeignKey(CarPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     dateTime = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='car/photos/')
+    processed_image = models.ImageField(upload_to='car/processed/')
     processed = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
 
