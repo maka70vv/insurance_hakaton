@@ -61,9 +61,10 @@ class CarPaymentRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     dateTime = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='car/photos/')
-    processed_image = models.ImageField(upload_to='car/processed/')
+    processed_image = models.ImageField(upload_to='car/processed/', null=True, blank=True)
     processed = models.BooleanField(default=False)
     approved = models.BooleanField(default=False)
+    recommended_summ = models.IntegerField(default=0)
 
     def __str__(self):
         return self.dateTime
