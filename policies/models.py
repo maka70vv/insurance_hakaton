@@ -22,6 +22,7 @@ TRAVEL_GOAL_CHOICES = (
     ('internship', 'Стажировка'),
 )
 
+
 class AccidentPolicy(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
     inn = models.CharField(max_length=14, verbose_name="ИНН", null=True, blank=True)

@@ -2,8 +2,12 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from insurance_companies.models import Company
+
 
 class User(AbstractUser):
+    is_insurance_company = models.BooleanField(default=False)
+    company_instance = models.ForeignKey(Company, null=True, blank=True, on_delete=models.CASCADE)
     inn = models.CharField(
         max_length=14,
         unique=True,
