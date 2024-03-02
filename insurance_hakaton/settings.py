@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "payments",
     'insurance_companies',
     'policies',
+    'cars_damages_process'
 ]
 
 
