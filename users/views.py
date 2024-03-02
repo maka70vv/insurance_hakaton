@@ -1,7 +1,5 @@
 from rest_framework import viewsets, generics, status, permissions
 from rest_framework.response import Response
-
-from policies.models import DMSPolicy
 from .models import User
 from .serializers import UserSerializer
 
@@ -22,4 +20,3 @@ class UserRegistrationAPIView(generics.CreateAPIView):
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
