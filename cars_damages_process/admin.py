@@ -4,5 +4,5 @@ from cars_damages_process.models import DamagePaymentsRange
 
 
 @admin.register(DamagePaymentsRange)
-class DamagePaymentsRangeAdmin(admin):
+class DamagePaymentsRangeAdmin(admin.ModelAdmin):
     list_display = ('min_damage', 'max_damage', 'payment_summ')
