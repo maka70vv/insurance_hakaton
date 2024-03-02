@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status, generics, permissions
 
 from limts_by_user.models import LimitsByUser
-from payments.models import MedicalPaymentRequest, VZRPaymentRequest
-from payments.serializers import PaymentSerializer, VZRPaymentSerializer
+from payments.models import MedicalPaymentRequest, VZRPaymentRequest, GruzPaymentRequest
+from payments.serializers import PaymentSerializer, VZRPaymentSerializer, GruzPaymentSerializer
 from payments.services import ProcessQR
 
 
@@ -19,10 +19,11 @@ class ReceiptUploadView(generics.CreateAPIView):
         inn, dateTime, summ, is_medical = processQR.process_receipt_image(qr)
         user = self.request.user
         service = serializer.validated_data.get("service")
+        policy = serializer.validated_data.get("policy")
         limitName = service.verboseLimitName
 
         if is_medical:
-            limitsByUser = LimitsByUser.objects.get(user=user, limitName=limitName)
+            limitsByUser = LimitsByUser.objects.get(user=user, limitName=limitName, policy_num=policy.policy_num)
             if limitsByUser.summ >= summ:
                 finalSumm = summ
                 limitsByUser.summ -= summ
@@ -111,3 +112,27 @@ class VZRPaymentByUserView(generics.ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return VZRPaymentRequest.objects.filter(user=user)
+
+
+class VZRPaymentRequestCreateView(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class CargoPaymentRequestCreateView(generics.CreateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = GruzPaymentSerializer
+    queryset = GruzPaymentRequest.objects.all()
+
+    def post(self, request, *args, **kwargs):
+        user = self.request.user
+        serializer = self.serializer_class(data=request.data, user=self.request.user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response("OK", status=status.HTTP_200_OK)
+
+
+# class
+
+# class DMSPaymentsForInsuranceCompanies(generics.ListAPIView):
+#     permission_classes = [permissions.IsAuthenticated]
+#     serializer_class =
