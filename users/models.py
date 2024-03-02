@@ -39,7 +39,6 @@ class User(AbstractUser):
     fullname = models.CharField(max_length=255, blank=True, null=True)
     okpo = models.CharField(max_length=25, blank=True, null=True)
     registration_number = models.CharField(max_length=255, blank=True, null=True)
-    fax = models.CharField(max_length=255, blank=True, null=True)
     ceo = models.CharField(max_length=255, blank=True, null=True)
     position_of_ceo = models.CharField(max_length=255, blank=True, null=True)
     envoy = models.CharField(max_length=255, blank=True, null=True)

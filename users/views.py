@@ -1,7 +1,7 @@
 from rest_framework import viewsets, generics, status, permissions
 from rest_framework.response import Response
 
-
+from policies.models import DMSPolicy
 from .models import User
 from .serializers import UserSerializer
 

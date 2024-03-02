@@ -82,6 +82,15 @@ class CarPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+class CarPolicyAPIView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CarPolicySerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return CarPolicy.objects.filter(user=user)
+
+
 class CargoPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CargoPolicySerializer
@@ -111,6 +120,15 @@ class CargoPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
 
         serializer = self.get_serializer(car_insurance)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class CargoPolicyAPIView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = CargoPolicySerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return CarPolicy.objects.filter(user=user)
 
 
 class VZRPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
@@ -185,14 +203,18 @@ class DMSPolicyCreateAPIViewWithCommission(generics.CreateAPIView):
                 date_expiration=date_expiration,
                 price=summ,
                 insurance_company=insurance_company
-                )
+            )
 
             dms_insurance.save()
             dms_insurance.policy_num = f"ДМС№{dms_insurance.id}"
+            try:
+                user = User.objects.get(inn=inn)
+                dms_insurance.user = user
+            except User.DoesNotExist:
+                pass
             dms_insurance.save()
 
             serializer = self.get_serializer(dms_insurance)
             policies.append(serializer.data)
 
         return Response(policies, status=status.HTTP_201_CREATED)
-
