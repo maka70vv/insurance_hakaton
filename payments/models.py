@@ -44,7 +44,7 @@ class VZRPaymentRequest(models.Model):
 class GruzPaymentRequest(models.Model):
     policy = models.ForeignKey(CargoPolicy, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.FileField(upload_to='cargo/')
+    image = models.FileField(upload_to='cargo/', null=True, blank=True)
     accidentPlace = models.TextField()
     dateTime = models.DateTimeField(auto_now_add=True)
     processed = models.BooleanField(default=False)
