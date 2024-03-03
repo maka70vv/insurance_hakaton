@@ -69,10 +69,10 @@ class VZRPaymentView(generics.CreateAPIView):
         user = self.request.user
         summ = request.data.get("summ")
         service = request.data.get("service")
-        limitName = service.verboseLimitName
-        limitsByUser = LimitsByUser.objects.get(user=user, limitName=limitName)
-        if limitsByUser.summ < summ:
-            summ = limitsByUser.summ
+        # limitName = service.verboseLimitName
+        # limitsByUser = LimitsByUser.objects.get(user=user, limitName=limitName)
+        # if limitsByUser.summ < summ:
+        #     summ = limitsByUser.summ
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.validated_data['summ'] = summ
