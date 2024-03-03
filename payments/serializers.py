@@ -29,7 +29,7 @@ class CarPaymentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        image = validated_data.pop('image', None)
+        image = validated_data.get('image')
         instance = super().create(validated_data)
 
         if image:
