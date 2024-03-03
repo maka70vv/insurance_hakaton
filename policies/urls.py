@@ -7,5 +7,7 @@ urlpatterns = [
     path('cars/create/platform/', views.CarPolicyCreateAPIViewWithCommission.as_view(), name=''),
     path('cargos/create/platform/', views.CargoPolicyCreateAPIViewWithCommission.as_view(), name=''),
     path('vzr/create/platform/', views.VZRPolicyCreateAPIViewWithCommission.as_view(), name=''),
-    path('dms/create/', views.DMSPolicyCreateAPIViewWithCommission.as_view(), name='')
+    path('dms/create/', views.DMSPolicyCreateAPIViewWithCommission.as_view(), name=''),
+    path('cargos/policy/by_user/', views.CargoPolicyAPIView.as_view()),
+    path('cars/policy/by_user/', views.CarPolicyAPIView.as_view())
 ]
