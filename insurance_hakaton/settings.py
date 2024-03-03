@@ -156,7 +156,7 @@ DATE_FORMAT = ['%d.%m.%Y']
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
 MEDIA_URL = "/media/"
-MEDIA_ROOT = "/var/dmsFiles"
+MEDIA_ROOT = BASE_DIR / "media"
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=3),

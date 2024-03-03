@@ -131,8 +131,8 @@ class CargoPaymentRequestCreateView(generics.CreateAPIView):
     def post(self, request, *args, **kwargs):
         user = self.request.user
         serializer = self.serializer_class(data=request.data)
-        serializer.validated_data['user'] = self.request.user
         serializer.is_valid(raise_exception=True)
+        serializer.validated_data['user'] = self.request.user
         serializer.save()
         return Response("OK", status=status.HTTP_200_OK)
 
@@ -185,26 +185,26 @@ class CarPaymentRequestCreateView(generics.CreateAPIView):
         serializer = self.serializer_class(data=serializer.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        # ai = AiInteration()
-        # image_obj = serializer.instance.image
+        ai = AiInteration()
+        image_obj = serializer.instance.image
+
+        # # Получаем URL-адрес изображения
+        # if image_obj:
+        #     image_url = staticfiles_storage.url(
+        #         image_obj.name)  # Получаем URL-адрес изображения из статических файлов Django
+        # else:
+        #     image_url = None
         #
-        # # # Получаем URL-адрес изображения
-        # # if image_obj:
-        # #     image_url = staticfiles_storage.url(
-        # #         image_obj.name)  # Получаем URL-адрес изображения из статических файлов Django
-        # # else:
-        # #     image_url = None
-        # #
-        # # if image_url:
-        # damage_degree = ai.ai_integration(image_obj) * 100
-        # try:
-        #     recommended_summ = DamagePaymentsRange.objects.get(min_damage__lte=damage_degree,
-        #                                                        max_damage__gte=damage_degree).payment_summ
-        # except DamagePaymentsRange.DoesNotExist:
-        #     recommended_summ = None
-        #     return Response("Соответствующий диапазон для урона не найден", status=status.HTTP_400_BAD_REQUEST)
-        #
-        # serializer.data['recommended_summ'] = recommended_summ
+        # if image_url:
+        damage_degree = ai.ai_integration(image_obj) * 100
+        try:
+            recommended_summ = DamagePaymentsRange.objects.get(min_damage__lte=damage_degree,
+                                                               max_damage__gte=damage_degree).payment_summ
+        except DamagePaymentsRange.DoesNotExist:
+            recommended_summ = None
+            return Response("Соответствующий диапазон для урона не найден", status=status.HTTP_400_BAD_REQUEST)
+
+        serializer.data['recommended_summ'] = recommended_summ
 
         return Response("OK", status=status.HTTP_200_OK)
     # else:
