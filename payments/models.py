@@ -8,8 +8,8 @@ from users.models import User
 
 class MedicalPaymentRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    service = models.ForeignKey(MedicalServices, on_delete=models.CASCADE)
-    limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
+    service = models.ForeignKey(MedicalServices, on_delete=models.CASCADE, null=True, blank=True)
+    limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE, null=True, blank=True)
     kkmCheck = models.FileField(upload_to='dms/kkm/')
     referral = models.FileField(upload_to='dms/napravleniya/', null=True, blank=True)
     invoice = models.FileField(upload_to='dms/schet-fakturi/', null=True, blank=True)
@@ -26,8 +26,8 @@ class MedicalPaymentRequest(models.Model):
 
 class VZRPaymentRequest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    service = models.ForeignKey(VZRServices, on_delete=models.CASCADE)
-    limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE)
+    service = models.ForeignKey(VZRServices, on_delete=models.CASCADE, null=True, blank=True)
+    limit = models.ForeignKey(LimitsByUser, on_delete=models.CASCADE, null=True, blank=True)
     dateTime = models.DateTimeField(null=True, blank=True, auto_now_add=True)
     summ = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     final_summ = models.DecimalField(max_digits=10, decimal_places=2, default=0)
