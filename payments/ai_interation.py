@@ -4,6 +4,7 @@ from numpy import average
 
 class AiInteration:
     def ai_integration(self, image):
+        image = "/home/makarov/PycharmProjects/insurance_hakaton/download.jpeg"
         CLIENT = InferenceHTTPClient(
             api_url="https://detect.roboflow.com",
             api_key="7emOY7vgz6Fz1GDR817U"
