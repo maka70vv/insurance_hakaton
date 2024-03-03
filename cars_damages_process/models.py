@@ -7,4 +7,4 @@ class DamagePaymentsRange(models.Model):
     payment_summ = models.IntegerField(default=0, verbose_name="Сумма в диапазоне")
 
     def __str__(self):
-        return self.max_damage
+        return str(self.max_damage)
