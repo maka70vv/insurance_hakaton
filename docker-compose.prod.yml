@@ -25,8 +25,8 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/home/skk/SKK-DMS/static
-      - media_volume:/var/dmsFiles
+      - static_volume:/home/makarov/insurance/static
+      - media_volume:/home/makarov/insurance/media
     ports:
       - "80:80"
     depends_on:
