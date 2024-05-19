@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 LABEL authors="makarov"
 
-WORKDIR /home/insurance_hakaton
+WORKDIR /home/makarov/insurance
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 ENV HOME=/home/makarov
 ENV APP_HOME=/home/makarov/insurance
 
-RUN mkdir $APP_HOME
+#RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/static
 WORKDIR $APP_HOME
 
