@@ -6,8 +6,8 @@ WORKDIR /home/insurance_hakaton
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-ENV HOME=/home
-ENV APP_HOME=/home/insurance_hakaton
+ENV HOME=/home/makarov
+ENV APP_HOME=/home/makarov/insurance
 
 #RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/static
