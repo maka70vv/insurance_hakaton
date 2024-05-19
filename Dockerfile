@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 ENV HOME=/home/makarov
 ENV APP_HOME=/home/makarov/insurance
 
-#RUN mkdir $APP_HOME
+RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/static
 WORKDIR $APP_HOME
 
