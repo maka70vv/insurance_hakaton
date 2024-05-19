@@ -1,36 +1,35 @@
-version: '3.8'
-
 services:
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    command: python3 manage.py runserver 0.0.0.0:8000
-#    volumes:
-#      - static_volume:/home/makarov/PycharmProjects/SKK/dmsIntegration/static
+    command: gunicorn insurance_hakaton.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/c/Users/Makarov/PycharmProjects/insurance_hakaton/static
+
     ports:
-      - "8000:8000"
+      - "8001:8000"
     env_file:
       - ./.env
 
-#    depends_on:
-#      - db
-#  db:
-#    image: postgres:16.0-alpine
-#    volumes:
-#      - postgres_data:/var/lib/pgsql/data/
-#    environment:
-#      - POSTGRES_USER=skk
-#      - POSTGRES_PASSWORD=123qwe!@#
-#      - POSTGRES_DB=dms_insurance
-#  nginx:
-#    build: ./nginx
-#    volumes:
-#      - static_volume:/home/makarov/PycharmProjects/SKK/dmsIntegration/static
-#    ports:
-#      - "8000:80"
-#    depends_on:
-#      - web
-#volumes:
-#  postgres_data:
-#  static_volume:
+    depends_on:
+      - db
+  db:
+    image: postgres:16.0-alpine
+    volumes:
+      - postgres_data:/c/Program Files/PostgreSQL/16/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=insurance
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/c/Users/Makarov/PycharmProjects/insurance_hakaton/static
+    ports:
+      - "81:80"
+    depends_on:
+      - web
+volumes:
+  postgres_data:
+  static_volume:

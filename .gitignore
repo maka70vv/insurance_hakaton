@@ -1,1 +1,8 @@
+.env**
 .idea
+**/migrations/*
+!**/migrations/__init__.py
+*.sqlite3
+dump*.json
+venv
+media

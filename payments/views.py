@@ -18,21 +18,24 @@ class ReceiptUploadView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         qr = serializer.validated_data.get("kkmCheck")
-        processQR = ProcessQR()
-        inn, dateTime, summ, is_medical = processQR.process_receipt_image(qr)
+        print(qr)
+        # processQR = ProcessQR()
+        # inn, dateTime, summ, is_medical = processQR.process_receipt_image(qr)
+        inn, dateTime, summ, is_medical = "02111293219032", "2024-05-16", 200, True
         user = self.request.user
         service = serializer.validated_data.get("service")
         policy = serializer.validated_data.get("policy")
+        print(policy)
         limitName = service.verboseLimitName
 
         if is_medical:
-            # limitsByUser = LimitsByUser.objects.get(user=user, limitName=limitName, policy_num=policy.policy_num)
-            # if limitsByUser.summ >= summ:
-            #     finalSumm = summ
-            #     limitsByUser.summ -= summ
-            #     limitsByUser.save()
-            # else:
-            #     finalSumm = limitsByUser.summ
+            limitsByUser = LimitsByUser.objects.get(user=user, limitName=limitName, policy_num=policy.policy_num)
+            if limitsByUser.summ >= summ:
+                finalSumm = summ
+                limitsByUser.summ -= summ
+                limitsByUser.save()
+            else:
+                finalSumm = limitsByUser.summ
 
             payment_request = MedicalPaymentRequest(
                 user=user,

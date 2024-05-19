@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  web:
+    image: maka7wx/insure:latest
+    command: gunicorn insurance_hakaton.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/makarov/insurance/static
+      - media_volume:/home/makarov/insurance/media
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+
+    depends_on:
+      - db
+    restart: always
+  db:
+    image: postgres:16.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/16/main
+    env_file:
+      - ./.env.prod.db
+    restart: always
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/skk/SKK-DMS/static
+      - media_volume:/var/dmsFiles
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    restart: always
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
